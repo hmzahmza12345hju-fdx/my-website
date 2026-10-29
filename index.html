@@ -33,7 +33,7 @@
 
         /* بطاقات الـ VIP والمهام */
         .vip-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .vip-title { font-weight: bold; color: #d32f2f; margin-bottom: 10px; }
+        .vip-title { font-weight: bold; color: #d32f2f; margin-bottom: 10px; font-size: 18px; }
         
         /* لوحة الأدمن */
         .admin-panel { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; }
@@ -93,35 +93,48 @@
         <div class="content">
             <!-- تبويب البيت -->
             <div id="tabHome" class="tab-content">
-                <h3>مرحباً بك في المنصة</h3>
-                <p>قم بدعوة الأصدقاء للاستفادة من نظام الإحالة المتطور.</p>
+                <h3>مرحباً بك في MEGA Alma-Ata</h3>
+                <p style="margin-top: 10px;">قم بدعوة الأصدقاء للاستفادة من نظام الإحالة المتطور والربح الجماعي.</p>
+                <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <h4 style="color: #d32f2f;">إعلان هام</h4>
+                    <p style="font-size: 14px; margin-top: 5px;">مكافأة الإحالة من المستوى 1: تفاصيل مستوى VIP متاحة الآن.</p>
+                </div>
             </div>
 
             <!-- تبويب المهام -->
             <div id="tabTasks" class="tab-content hidden">
                 <h3>قاعة المهام اليومية</h3>
-                <div id="tasksList"></div>
+                <div style="margin-top: 15px;" id="tasksList">
+                    <div class="vip-card">
+                        <div class="vip-title">مهمة VIP 1</div>
+                        <p>الربح المتوقع: 1.00 USDT</p>
+                        <button class="btn-submit" style="margin-top:10px;" onclick="alert('تم تنفيذ المهمة بنجاح وإضافة الأرباح!')">تنفيذ المهمة</button>
+                    </div>
+                </div>
             </div>
 
             <!-- تبويب الفريق -->
             <div id="tabTeam" class="tab-content hidden">
                 <h3>فريق الأصدقاء والإحالات</h3>
-                <p>رمز الدعوة الخاص بك: <b>154974</b></p>
-                <p>رابط الإحالة: <input type="text" value="https://t5hP5A.mega-alma-vip..." readonly style="width:100%; padding:5px; margin-top:5px;"></p>
+                <p style="margin-top: 10px;">رمز الدعوة الخاص بك: <b>154974</b></p>
+                <p style="margin-top: 5px;">رابط الإحالة:</p>
+                <input type="text" value="https://t5hP5A.mega-alma-vip.com/ref?id=154974" readonly style="width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:4px;">
             </div>
 
             <!-- تبويب كبار الشخصيات VIP -->
             <div id="tabVip" class="tab-content hidden">
                 <h3>مستويات كبار الشخصيات (VIP)</h3>
-                <div id="vipLevelsContainer"></div>
+                <div id="vipLevelsContainer" style="margin-top: 15px;"></div>
             </div>
 
             <!-- تبويب أنا (الحساب) -->
             <div id="tabProfile" class="tab-content hidden">
-                <h3>إدارة الحساب</h3>
-                <p>رصيد الإيداع الإجمالي: <span id="userBalance">0.00</span> USDT</p>
-                <button class="btn-submit" style="margin-top:10px;" onclick="alert('تم الانتقال لصفحة الإيداع')">إيداع</button>
-                <button class="btn-submit" style="margin-top:10px; background:#333;" onclick="alert('تم الانتقال لصفحة السحب')">سحب</button>
+                <h3>إدارة الحساب الشخصي</h3>
+                <div style="background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <p>رصيد الإيداع الإجمالي: <span id="userBalance" style="color: #d32f2f; font-weight: bold;">0.00</span> USDT</p>
+                </div>
+                <button class="btn-submit" style="margin-top:15px;" onclick="alert('تم الانتقال لصفحة الإيداع عبر العملات المشفرة')">إيداع</button>
+                <button class="btn-submit" style="margin-top:10px; background:#333;" onclick="alert('تم الانتقال لصفحة السحب الفوري')">سحب</button>
                 <button class="btn-submit" style="margin-top:10px; background:#666;" onclick="logout()">تسجيل الخروج</button>
             </div>
         </div>
@@ -136,44 +149,43 @@
         </div>
     </div>
 
-    <!-- لوحة تحكم الأدمن (تظهر للأدمن فقط أو عبر زر مخصص) -->
+    <!-- لوحة تحكم الأدمن -->
     <div id="adminScreen" class="admin-panel hidden">
-        <h2>لوحة تحكم الأدمن</h2>
-        <p>إدارة المستخدمين، تصحيح الأرصدة، والموافقة على السحوبات والإيداعات.</p>
+        <h2>لوحة تحكم الأدمن (MEGA Alma-Ata)</h2>
+        <p>إدارة الحسابات، تعديل أرصدة المستخدمين، ومراجعة طلبات الإيداع والسحب.</p>
         <table class="admin-table">
             <thead>
                 <tr>
                     <th>المستخدم</th>
                     <th>الرصيد الحالي</th>
                     <th>الـ VIP</th>
-                    <th>الإجراء</th>
+                    <th>الإجراء الإداري</th>
                 </tr>
             </thead>
             <tbody id="adminUsersTable">
                 <tr>
                     <td>user1@mega.com</td>
-                    <td>100 USDT</td>
+                    <td>100.00 USDT</td>
                     <td>VIP 3</td>
-                    <td><button onclick="alert('تم تصحيح الحساب وإرسال الأموال')">تصحيح / إرسال أموال</button></td>
+                    <td><button onclick="alert('تم تصحيح الحساب وإرسال الأموال بنجاح!')" style="background:#d32f2f; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">تصحيح وإرسال الأموال</button></td>
                 </tr>
             </tbody>
         </table>
-        <button class="btn-submit" style="margin-top:15px; background:#333;" onclick="exitAdmin()">العودة للمستخدم</button>
+        <button class="btn-submit" style="margin-top:15px; background:#333;" onclick="exitAdmin()">العودة لوجهة المستخدم</button>
     </div>
 
     <script>
-        // بيانات مستويات الـ VIP بدقة
         const vipData = [
-            { id: 1, name: "VIP 1", taskPrice: "1.00 USDT", dailyProfit: "1.00 USDT", totalProfit: "365.00 USDT", unlock: "3.00 USDT" },
-            { id: 2, name: "VIP 2", taskPrice: "6.00 USDT", dailyProfit: "6.00 USDT", totalProfit: "2,190.00 USDT", unlock: "18.00 USDT" },
-            { id: 3, name: "VIP 3", taskPrice: "32.00 USDT", dailyProfit: "32.00 USDT", totalProfit: "11,680.00 USDT", unlock: "96.00 USDT" },
-            { id: 4, name: "VIP 4", taskPrice: "95.00 USDT", dailyProfit: "95.00 USDT", totalProfit: "34,675.00 USDT", unlock: "280.00 USDT" },
-            { id: 5, name: "VIP 5", taskPrice: "214.00 USDT", dailyProfit: "214.00 USDT", totalProfit: "78,110.00 USDT", unlock: "600.00 USDT" },
-            { id: 6, name: "VIP 6", taskPrice: "576.00 USDT", dailyProfit: "576.00 USDT", totalProfit: "210,240.00 USDT", unlock: "1,500.00 USDT" },
-            { id: 7, name: "VIP 7", taskPrice: "1,400.00 USDT", dailyProfit: "1,400.00 USDT", totalProfit: "511,000.00 USDT", unlock: "3,500.00 USDT" },
-            { id: 8, name: "VIP 8", taskPrice: "3,800.00 USDT", dailyProfit: "3,800.00 USDT", totalProfit: "1,387,000.00 USDT", unlock: "8,800.00 USDT" },
-            { id: 9, name: "VIP 9", taskPrice: "13,830.00 USDT", dailyProfit: "13,830.00 USDT", totalProfit: "5,047,950.00 USDT", unlock: "28,000.00 USDT" },
-            { id: 10, name: "VIP 10", taskPrice: "26,000.00 USDT", dailyProfit: "26,000.00 USDT", totalProfit: "9,490,000.00 USDT", unlock: "48,000.00 USDT" }
+            { name: "VIP 1", taskPrice: "1.00 USDT", dailyProfit: "1.00 USDT", totalProfit: "365.00 USDT", unlock: "3.00 USDT" },
+            { name: "VIP 2", taskPrice: "6.00 USDT", dailyProfit: "6.00 USDT", totalProfit: "2,190.00 USDT", unlock: "18.00 USDT" },
+            { name: "VIP 3", taskPrice: "32.00 USDT", dailyProfit: "32.00 USDT", totalProfit: "11,680.00 USDT", unlock: "96.00 USDT" },
+            { name: "VIP 4", taskPrice: "95.00 USDT", dailyProfit: "95.00 USDT", totalProfit: "34,675.00 USDT", unlock: "280.00 USDT" },
+            { name: "VIP 5", taskPrice: "214.00 USDT", dailyProfit: "214.00 USDT", totalProfit: "78,110.00 USDT", unlock: "600.00 USDT" },
+            { name: "VIP 6", taskPrice: "576.00 USDT", dailyProfit: "576.00 USDT", totalProfit: "210,240.00 USDT", unlock: "1,500.00 USDT" },
+            { name: "VIP 7", taskPrice: "1,400.00 USDT", dailyProfit: "1,400.00 USDT", totalProfit: "511,000.00 USDT", unlock: "3,500.00 USDT" },
+            { name: "VIP 8", taskPrice: "3,800.00 USDT", dailyProfit: "3,800.00 USDT", totalProfit: "1,387,000.00 USDT", unlock: "8,800.00 USDT" },
+            { name: "VIP 9", taskPrice: "13,830.00 USDT", dailyProfit: "13,830.00 USDT", totalProfit: "5,047,950.00 USDT", unlock: "28,000.00 USDT" },
+            { name: "VIP 10", taskPrice: "26,000.00 USDT", dailyProfit: "26,000.00 USDT", totalProfit: "9,490,000.00 USDT", unlock: "48,000.00 USDT" }
         ];
 
         function switchAuthTab(tab) {
@@ -239,7 +251,7 @@
                         <p>الربح لكل مهمة: ${vip.taskPrice}</p>
                         <p>الربح اليومي: ${vip.dailyProfit}</p>
                         <p>إجمالي الربح: ${vip.totalProfit}</p>
-                        <button class="btn-submit" style="margin-top:10px;" onclick="alert('اشتراك في ${vip.name}')">افتح الآن ${vip.unlock}</button>
+                        <button class="btn-submit" style="margin-top:10px;" onclick="alert('تم طلب الاشتراك في ${vip.name} بنجاح، بانتظار موافقة الأدمن')">افتح الآن ${vip.unlock}</button>
                     </div>
                 `;
             });
