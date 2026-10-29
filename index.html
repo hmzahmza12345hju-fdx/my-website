@@ -17,7 +17,7 @@
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
     <!-- Mobile Wrapper Container -->
-    <div id="main-wrapper" class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative overflow-hidden pb-20">
+    <div class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative overflow-hidden pb-20">
 
         <!-- Top Header -->
         <header class="bg-mega-red text-white p-4 flex justify-between items-center shadow-md">
@@ -33,11 +33,11 @@
 
         <!-- Main Content Area -->
         <main id="app-content" class="flex-1 overflow-y-auto">
-            <!-- Dynamic Pages -->
+            <!-- Dynamic Pages injected via JS -->
         </main>
 
         <!-- Bottom Navigation Bar -->
-        <nav id="bottom-nav" class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center py-2 z-50 shadow-lg">
+        <nav class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center py-2 z-50 shadow-lg">
             <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-mega-red">
                 <i class="fa-solid fa-house text-lg"></i>
                 <span class="text-xs mt-1">بيت</span>
@@ -67,23 +67,13 @@
     <script>
         // App State
         let currentTab = 'home';
-        let userBalance = parseFloat(localStorage.getItem('mega_balance') || '0');
-        let totalDeposit = parseFloat(localStorage.getItem('mega_deposit') || '0');
-        let userPhone = localStorage.getItem('mega_phone') || '+10934126080';
-        let userVip = localStorage.getItem('mega_vip') || 'VIP0';
+        let userBalance = 0;
+        let totalDeposit = 0;
+        let userPhone = '+10934126080';
+        let userVip = 'VIP0';
         const depositAddress = '0xb6c5fea9da57c4e234ce95a9b56261e3da14acf5';
         const inviteCode = '154974';
         const inviteLink = 'https://mega-alma.vip/ref?id=154974';
-
-        let depositsList = JSON.parse(localStorage.getItem('mega_admin_deposits') || JSON.stringify([]));
-
-        function saveData() {
-            localStorage.setItem('mega_balance', userBalance);
-            localStorage.setItem('mega_deposit', totalDeposit);
-            localStorage.setItem('mega_vip', userVip);
-            localStorage.setItem('mega_phone', userPhone);
-            localStorage.setItem('mega_admin_deposits', JSON.stringify(depositsList));
-        }
 
         const vipLevels = [
             { id: 1, name: 'VIP1', price: 3.00, dailyTasks: 1, taskReward: 1.00, dailyProfit: 1.00, totalProfit: 365.00 },
@@ -100,7 +90,11 @@
 
         function copyText(text, msg) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => alert(msg)).catch(() => fallbackCopy(text, msg));
+                navigator.clipboard.writeText(text).then(() => {
+                    alert(msg);
+                }).catch(() => {
+                    fallbackCopy(text, msg);
+                });
             } else {
                 fallbackCopy(text, msg);
             }
@@ -109,11 +103,16 @@
         function fallbackCopy(text, msg) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            textArea.style.position = "fixed";
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-            try { document.execCommand('copy'); alert(msg); } catch (err) { alert('فشل النسخ'); }
+            try {
+                document.execCommand('copy');
+                alert(msg);
+            } catch (err) {
+                alert('فشل النسخ، يرجى النسخ يدوياً');
+            }
             document.body.removeChild(textArea);
         }
 
@@ -150,7 +149,7 @@
                         </div>
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
                             <h3 class="font-bold text-gray-700"><i class="fa-solid fa-circle-info text-mega-red ml-1"></i> معلومات عنا</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">أحد مراكز التسوق الأكثر شهرة MEGA Alma-Ata يقع في كازاخستان، ألماتي...</p>
+                            <p class="text-xs text-gray-600 leading-relaxed">أحد مراكز التسوق الأكثر شهرة MEGA Alma-Ata يقع في كازاخستان، ألماتي... يدمج التسوق وتناول الطعام والترفيه والتسوق العائلي.</p>
                             <button onclick="switchTab('vip')" class="text-xs text-mega-red font-bold underline">عرض خطط كبار الشخصيات &larr;</button>
                         </div>
                     </div>
@@ -198,11 +197,12 @@
                             <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="font-bold text-mega-red text-lg">${v.name}</span>
-                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded">المهام: ${v.dailyTasks}</span>
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded">المهام اليومية: ${v.dailyTasks}</span>
                                 </div>
                                 <div class="text-xs text-gray-600 space-y-1">
                                     <p>الربح لكل مهمة: <span class="text-green-600 font-bold">${v.taskReward.toFixed(2)} USDT</span></p>
                                     <p>الربح اليومي: <span class="font-bold">${v.dailyProfit.toFixed(2)} USDT</span></p>
+                                    <p>إجمالي الربح: <span class="font-bold">${v.totalProfit.toFixed(2)} USDT</span></p>
                                 </div>
                                 <button onclick="upgradeVip(${v.price}, '${v.name}')" class="w-full bg-black text-white py-2 rounded-lg text-sm font-bold">افتح الآن ${v.price.toFixed(2)} USDT</button>
                             </div>
@@ -214,7 +214,7 @@
                     <div class="p-4 space-y-4">
                         <div class="bg-gray-900 text-white p-4 rounded-xl flex items-center justify-between">
                             <div>
-                                <p class="text-xs text-gray-400">مرحباً،</p>
+                                <p class="text-xs text-gray-400">Hello,</p>
                                 <p class="font-bold text-lg">${userPhone}</p>
                             </div>
                             <span class="bg-amber-500 text-black text-xs font-bold px-2 py-1 rounded">${userVip}</span>
@@ -223,10 +223,16 @@
                             <div><p class="text-xs text-gray-500">الرصيد الإجمالي (USDT)</p><p class="font-bold text-lg text-mega-red">${userBalance.toFixed(2)}</p></div>
                             <div><p class="text-xs text-gray-500">مبلغ الإيداع (USDT)</p><p class="font-bold text-lg">${totalDeposit.toFixed(2)}</p></div>
                         </div>
-                        <button onclick="switchTab('records')" class="w-full bg-white border p-3 rounded-xl flex justify-between items-center text-sm font-bold shadow-sm">
-                            <span><i class="fa-solid fa-clock-rotate-left text-mega-red ml-2"></i> سجلات الإيداع والسحب</span>
-                            <i class="fa-solid fa-chevron-left text-gray-400"></i>
-                        </button>
+                        <div class="space-y-2">
+                            <button onclick="switchTab('records')" class="w-full bg-white border p-3 rounded-xl flex justify-between items-center text-sm font-bold shadow-sm">
+                                <span><i class="fa-solid fa-clock-rotate-left text-mega-red ml-2"></i> سجلات الإيداع والسحب</span>
+                                <i class="fa-solid fa-chevron-left text-gray-400"></i>
+                            </button>
+                            <button onclick="alert('تم تسجيل الخروج')" class="w-full bg-white border p-3 rounded-xl flex justify-between items-center text-sm font-bold text-red-600 shadow-sm">
+                                <span><i class="fa-solid fa-right-from-bracket ml-2"></i> تسجيل الخروج</span>
+                                <i class="fa-solid fa-chevron-left text-gray-400"></i>
+                            </button>
+                        </div>
                     </div>
                 `;
             } else if (currentTab === 'records') {
@@ -236,13 +242,9 @@
                             <h2 class="font-bold text-lg text-gray-800">السجلات</h2>
                             <button onclick="switchTab('profile')" class="text-xs bg-gray-200 px-3 py-1 rounded">عودة</button>
                         </div>
-                        <div class="bg-white p-6 rounded-xl border space-y-2">
-                            ${depositsList.length === 0 ? '<p class="text-center text-gray-400 text-sm">لا توجد سجلات إيداع سابقة</p>' : depositsList.map(d => `
-                                <div class="flex justify-between items-center border-b pb-2 text-xs">
-                                    <div><span class="font-bold text-green-600">+${d.amount} USDT</span><p class="text-gray-400">${d.date}</p></div>
-                                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">${d.status}</span>
-                                </div>
-                            `).join('')}
+                        <div class="bg-white p-8 rounded-xl border text-center text-gray-400 space-y-2">
+                            <i class="fa-solid fa-folder-open text-4xl"></i>
+                            <p class="text-sm">لا توجد بيانات حالياً</p>
                         </div>
                     </div>
                 `;
@@ -261,7 +263,7 @@
                             <div class="bg-gray-100 p-2 rounded inline-block text-xs font-mono break-all">${depositAddress}</div>
                             <button onclick="copyText('${depositAddress}', 'تم نسخ عنوان الإيداع!')" class="bg-mega-red text-white w-full py-2 rounded-lg text-sm font-bold">نسخ عنوان الإيداع</button>
                         </div>
-                        <button onclick="confirmDeposit(10)" class="w-full bg-green-600 text-white py-2 rounded-lg text-sm font-bold">تأكيد إيداع تجريبي (+10 USDT)</button>
+                        <button onclick="confirmDeposit(10)" class="w-full bg-green-600 text-white py-2 rounded-lg text-sm font-bold">تم الإيداع (تجريبي +10 USDT)</button>
                     </div>
                 </div>
             `;
@@ -293,9 +295,6 @@
         function confirmDeposit(amount) {
             userBalance += amount;
             totalDeposit += amount;
-            depositsList.push({ amount: amount, date: new Date().toLocaleDateString(), status: 'مكتمل' });
-            
-            saveData();
             closeModal();
             alert('تمت إضافة الإيداع بنجاح!');
             renderContent();
@@ -303,10 +302,15 @@
 
         function processWithdraw() {
             const amt = parseFloat(document.getElementById('withdraw-amount').value);
-            if(isNaN(amt) || amt <= 0) { alert('أدخل كمية صحيحة'); return; }
-            if(amt > userBalance) { alert('رصيدك غير كافٍ'); return; }
+            if(isNaN(amt) || amt <= 0) {
+                alert('الرجاء إدخال كمية صحيحة');
+                return;
+            }
+            if(amt > userBalance) {
+                alert('رصيدك غير كافٍ');
+                return;
+            }
             userBalance -= amt;
-            saveData();
             closeModal();
             alert('تم تقديم طلب السحب بنجاح!');
             renderContent();
@@ -314,19 +318,23 @@
 
         function upgradeVip(price, vipName) {
             if(userBalance < price) {
-                alert('رصيدك غير كافٍ، يرجى الإيداع أولاً.');
+                alert('رصيدك غير كافٍ لفتح هذا المستوى، يرجى الإيداع أولاً.');
                 openDeposit();
                 return;
             }
             userBalance -= price;
             userVip = vipName;
-            saveData();
             alert(`تم ترقية حسابك إلى ${vipName} بنجاح!`);
             renderContent();
         }
 
         function completeTask() {
             if(userVip === 'VIP0') {
-                alert('يرجى ترقية حسابك أولاً لتنفيذ المهام.');
+                alert('يرجى ترقية حسابك إلى أحد مستويات VIP لتنفيذ المهام.');
                 switchTab('vip');
-            
+                return;
+            }
+            const currentVipObj = vipLevels.find(v => v.name === userVip);
+            const reward = currentVipObj ? currentVipObj.taskReward : 1.0;
+            userBalance += reward;
+            alert(`تم إتمام المهمة بنجاح! حصلت على ${r
