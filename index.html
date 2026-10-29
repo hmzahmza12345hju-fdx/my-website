@@ -3,234 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virelo Platform</title>
+    <title>MEGA Alma-Ata</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #0d1322; color: #ffffff; padding-bottom: 70px; }
-
-        /* Navbar Bottom */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #ffffff; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #e2e8f0; z-index: 1000; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #94a3b8; text-decoration: none; font-size: 11px; cursor: pointer; }
-        .nav-item.active { color: #3b82f6; }
-        .nav-item i { font-size: 18px; margin-bottom: 3px; }
-
-        /* Header Cards */
-        .app-header { background: #1a233d; padding: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: right; position: relative; }
-        .balance-title { font-size: 13px; color: #94a3b8; }
-        .balance-amount { font-size: 32px; font-weight: bold; margin: 5px 0; }
-        .quick-actions { display: flex; justify-content: space-around; margin-top: 20px; }
-        .action-btn { background: #2563eb; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; margin-bottom: 5px; }
-        .action-item { display: flex; flex-direction: column; align-items: center; font-size: 12px; }
-
-        /* Pages Section */
-        .page-content { display: none; padding: 15px; }
-        .page-content.active { display: block; }
-
-        /* Modals */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
-        .modal-card { background: #ffffff; color: #1e293b; border-radius: 16px; width: 100%; max-width: 350px; padding: 20px; text-align: center; }
-        .modal-card h3 { font-size: 20px; margin-bottom: 15px; color: #0f172a; }
-        .modal-card p { font-size: 13px; color: #475569; margin-bottom: 10px; text-align: right; line-height: 1.5; }
-        .btn-understand { background: #3b82f6; color: #fff; border: none; padding: 10px 30px; border-radius: 20px; width: 100%; font-size: 16px; margin-top: 15px; cursor: pointer; }
-
-        /* Device Cards */
-        .device-card { background: #ffffff; color: #1e293b; border-radius: 12px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .device-img { width: 90px; height: 90px; object-fit: cover; border-radius: 8px; }
-        .device-info { flex: 1; margin-right: 15px; }
-        .device-title { font-size: 16px; font-weight: bold; margin-bottom: 5px; }
-        .device-detail { font-size: 12px; color: #64748b; margin-bottom: 3px; }
-        .btn-buy { background: #2563eb; color: #fff; border: none; padding: 8px 0; border-radius: 20px; width: 100%; font-weight: bold; margin-top: 8px; cursor: pointer; }
-
-        /* Task & Profile List Rows */
-        .list-row { background: #ffffff; color: #1e293b; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .list-row span { font-size: 14px; font-weight: 500; }
-
-        /* Floating Support */
-        .float-support { position: fixed; bottom: 75px; left: 15px; background: #2563eb; color: white; padding: 8px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #f7f7f7; }
+        .bg-mega-red { background-color: #e50914; }
+        .text-mega-red { color: #e50914; }
+        .border-mega-red { border-color: #e50914; }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
 
-    <!-- Welcome Modal -->
-    <div id="welcomeModal" class="modal-overlay">
-        <div class="modal-card">
-            <h3>Welcome Aboard!</h3>
-            <p>✨ <strong>Your Welcome Benefits</strong><br>Enjoy a welcome bonus of 3 USDT for new users</p>
-            <p>💼 <strong>Explore Available Plans</strong><br>Choose a plan that fits your budget and review the available products in the device section.</p>
-            <p>💰 <strong>Illustrative Daily Earnings</strong><br>
-               Invest 30 USDT → Up to 3 USDT per day<br>
-               Invest 50 USDT → Up to 5 USDT per day<br>
-               Invest 100 USDT → Up to 10 USDT per day
-            </p>
-            <button class="btn-understand" onclick="closeModal()">فهم</button>
-        </div>
-    </div>
+    <!-- Mobile Wrapper Container -->
+    <div class="w-full max-w-md bg-white min-h-screen flex flex-col shadow-2xl relative overflow-hidden pb-20">
 
-    <!-- MAIN PAGE -->
-    <div id="page-home" class="page-content active">
-        <div class="app-header">
-            <div class="balance-title">إجمالي أرباح الدراجة</div>
-            <div class="balance-amount">3 <small style="font-size:16px;">USDT</small></div>
-            <div class="quick-actions">
-                <div class="action-item">
-                    <div class="action-btn" onclick="showTab('page-recharge')"><i class="fa-solid fa-wallet"></i></div>
-                    <span>الرصيد</span>
-                </div>
-                <div class="action-item">
-                    <div class="action-btn" onclick="showTab('page-recharge')"><i class="fa-solid fa-download"></i></div>
-                    <span>شحن</span>
-                </div>
-                <div class="action-item">
-                    <div class="action-btn" onclick="showTab('page-withdraw')"><i class="fa-solid fa-upload"></i></div>
-                    <span>سحب</span>
-                </div>
+        <!-- Top Header -->
+        <header class="bg-mega-red text-white p-4 flex justify-between items-center shadow-md">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <div class="bg-white text-mega-red font-black px-2 py-1 rounded text-lg">20</div>
+                <span class="font-bold text-xl tracking-wide">MEGA Alma-Ata</span>
             </div>
-        </div>
-
-        <div style="padding-top:20px;">
-            <div class="device-card">
-                <img src="https://via.placeholder.com/100" class="device-img" alt="GPU">
-                <div class="device-info">
-                    <div class="device-title">CoreStation</div>
-                    <div class="device-detail">السعر: 30 USDT</div>
-                    <div class="device-detail">دورة الأرباح: 24 ساعة</div>
-                    <div class="device-detail">الوقت الفعال: 80 يوم</div>
-                    <div class="device-detail">الإيرادات: 3 USDT</div>
-                    <button class="btn-buy">شراء</button>
-                </div>
+            <div class="flex items-center space-x-2 space-x-reverse bg-red-700 px-3 py-1 rounded-full text-sm">
+                <i class="fa-solid fa-globe"></i>
+                <span>عربي</span>
             </div>
+        </header>
 
-            <div class="device-card">
-                <img src="https://via.placeholder.com/100" class="device-img" alt="Server">
-                <div class="device-info">
-                    <div class="device-title">ServerPro</div>
-                    <div class="device-detail">السعر: 50 USDT</div>
-                    <div class="device-detail">دورة الأرباح: 24 ساعة</div>
-                    <div class="device-detail">الوقت الفعال: 80 يوم</div>
-                    <div class="device-detail">الإيرادات: 5 USDT</div>
-                    <button class="btn-buy">شراء</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <!-- Main Content Area -->
+        <main id="app-content" class="flex-1 overflow-y-auto">
+            <!-- Dynamic Pages injected via JS -->
+        </main>
 
-    <!-- DEVICES PAGE -->
-    <div id="page-devices" class="page-content">
-        <h3 style="margin-bottom: 15px;">قائمة الأجهزة</h3>
-        <div class="device-card">
-            <img src="https://via.placeholder.com/100" class="device-img" alt="GPU">
-            <div class="device-info">
-                <div class="device-title">ChipCore</div>
-                <div class="device-detail">السعر: 100 USDT</div>
-                <div class="device-detail">دورة الأرباح: 24 ساعة</div>
-                <div class="device-detail">الإيرادات: 10 USDT</div>
-                <div class="device-detail">ربح 30 يوم: 300 USDT</div>
-                <button class="btn-buy">اذهب للاستثمار</button>
-            </div>
-        </div>
-    </div>
+        <!-- Bottom Navigation Bar -->
+        <nav class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center py-2 z-50 shadow-lg">
+            <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-mega-red">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-xs mt-1">بيت</span>
+            </button>
+            <button onclick="switchTab('tasks')" id="nav-tasks" class="flex flex-col items-center text-gray-500">
+                <i class="fa-solid fa-file-lines text-lg"></i>
+                <span class="text-xs mt-1">المهام</span>
+            </button>
+            <button onclick="switchTab('team')" id="nav-team" class="flex flex-col items-center text-gray-500">
+                <i class="fa-solid fa-users text-lg"></i>
+                <span class="text-xs mt-1">فريق</span>
+            </button>
+            <button onclick="switchTab('vip')" id="nav-vip" class="flex flex-col items-center text-gray-500">
+                <i class="fa-solid fa-crown text-lg"></i>
+                <span class="text-xs mt-1">كبار الشخصيات</span>
+            </button>
+            <button onclick="switchTab('profile')" id="nav-profile" class="flex flex-col items-center text-gray-500">
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-xs mt-1">أنا</span>
+            </button>
+        </nav>
 
-    <!-- TASKS PAGE -->
-    <div id="page-tasks" class="page-content">
-        <div style="background:#1a233d; padding:15px; border-radius:12px; margin-bottom:15px;">
-            <h3>User515750</h3>
-            <p style="font-size: 12px; color:#94a3b8;">رمز دعوتي: 56793137</p>
-            <div style="background:#0d1322; padding:10px; border-radius:6px; margin:10px 0; font-size:11px; word-break:break-all;">
-                https://virelo.top/index.html#/register?recommendCode=56793137
-            </div>
-            <button class="btn-buy" style="margin-top:0;">نسخ ومشاركة الرابط</button>
-        </div>
-        <div class="list-row"><span>دعوات المستوى الأول</span> <span>0/0</span></div>
-        <div class="list-row"><span>دعوات المستوى الثاني</span> <span>0/0</span></div>
-        <div class="list-row"><span>دعوات المستوى الثالث</span> <span>0/0</span></div>
-    </div>
-
-    <!-- PROFILE PAGE -->
-    <div id="page-profile" class="page-content">
-        <div style="background:#1a233d; padding:20px; border-radius:12px; margin-bottom:15px;">
-            <h2>User515750</h2>
-            <p style="font-size:12px; color:#3b82f6;">ID:147</p>
-            <p style="margin-top:10px; font-size:14px;">الرصيد: <strong>3 USDT</strong></p>
-        </div>
-        <div class="list-row"><span><i class="fa-solid fa-lock"></i> إعدادات كلمة المرور</span> <i class="fa-solid fa-chevron-left"></i></div>
-        <div class="list-row"><span><i class="fa-solid fa-user-plus"></i> دعوة الآخرين</span> <i class="fa-solid fa-chevron-left"></i></div>
-        <div class="list-row"><span><i class="fa-solid fa-credit-card"></i> معلومات البطاقة المصرفية</span> <i class="fa-solid fa-chevron-left"></i></div>
-        <div class="list-row"><span><i class="fa-solid fa-globe"></i> اللغة</span> <span>العربية <i class="fa-solid fa-chevron-left"></i></span></div>
-    </div>
-
-    <!-- RECHARGE PAGE -->
-    <div id="page-recharge" class="page-content">
-        <h3>الرصيد والشحن</h3>
-        <div style="background:#fff; color:#000; padding:15px; border-radius:12px; margin: 15px 0;">
-            <p style="font-size:12px;">(USDT) رصيدي</p>
-            <h2 style="font-size:28px;">3</h2>
-        </div>
-        <p style="font-size:13px; margin-bottom:10px;">اختر مبلغ الشحن:</p>
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:15px;">
-            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">30</button>
-            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">50</button>
-            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">100</button>
-        </div>
-        <button class="btn-buy">شحن</button>
-    </div>
-
-    <!-- WITHDRAW PAGE -->
-    <div id="page-withdraw" class="page-content">
-        <h3>سحب الأرباح</h3>
-        <div style="background:#fff; color:#000; padding:15px; border-radius:12px; margin: 15px 0;">
-            <p style="font-size:12px;">(USDT) الحد الأدنى للسحب هو 10</p>
-            <input type="number" placeholder="أدخل مبلغ السحب" style="width:100%; padding:10px; margin-top:10px; border:1px solid #ccc; border-radius:6px;">
-        </div>
-        <button class="btn-buy">إرسال طلب السحب</button>
-    </div>
-
-    <!-- Floating Support Button -->
-    <div class="float-support">
-        <i class="fa-solid fa-headset"></i> اتصل بنا
-    </div>
-
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="showTab('page-home', this)">
-            <i class="fa-solid fa-house"></i>
-            <span>الرئيسية</span>
-        </div>
-        <div class="nav-item" onclick="showTab('page-devices', this)">
-            <i class="fa-solid fa-robot"></i>
-            <span>أجهزة</span>
-        </div>
-        <div class="nav-item" onclick="showTab('page-tasks', this)">
-            <i class="fa-solid fa-clipboard-check"></i>
-            <span>مهمة</span>
-        </div>
-        <div class="nav-item" onclick="showTab('page-profile', this)">
-            <i class="fa-solid fa-user"></i>
-            <span>أنا</span>
-        </div>
+        <!-- Modals Container -->
+        <div id="modal-container"></div>
     </div>
 
     <script>
-        function closeModal() {
-            document.getElementById('welcomeModal').style.display = 'none';
+        // App State
+        let currentTab = 'home';
+        let userBalance = 0;
+        let totalDeposit = 0;
+        let userPhone = '+10934126080';
+        let userVip = 'VIP0';
+        const depositAddress = '0xb6c5fea9da57c4e234ce95a9b56261e3da14acf5';
+
+        const vipLevels = [
+            { id: 1, name: 'VIP1', price: 3.00, dailyTasks: 1, taskReward: 1.00, dailyProfit: 1.00, totalProfit: 365.00 },
+            { id: 2, name: 'VIP2', price: 18.00, dailyTasks: 1, taskReward: 6.00, dailyProfit: 6.00, totalProfit: 2190.00 },
+            { id: 3, name: 'VIP3', price: 96.00, dailyTasks: 1, taskReward: 32.00, dailyProfit: 32.00, totalProfit: 11680.00 },
+            { id: 4, name: 'VIP4', price: 280.00, dailyTasks: 1, taskReward: 95.00, dailyProfit: 95.00, totalProfit: 34675.00 },
+            { id: 5, name: 'VIP5', price: 600.00, dailyTasks: 1, taskReward: 214.00, dailyProfit: 214.00, totalProfit: 78110.00 },
+            { id: 6, name: 'VIP6', price: 1500.00, dailyTasks: 1, taskReward: 576.00, dailyProfit: 576.00, totalProfit: 210240.00 },
+            { id: 7, name: 'VIP7', price: 3500.00, dailyTasks: 1, taskReward: 1400.00, dailyProfit: 1400.00, totalProfit: 511000.00 },
+            { id: 8, name: 'VIP8', price: 8800.00, dailyTasks: 1, taskReward: 3800.00, dailyProfit: 3800.00, totalProfit: 1387000.00 },
+            { id: 9, name: 'VIP9', price: 28000.00, dailyTasks: 1, taskReward: 13830.00, dailyProfit: 13830.00, totalProfit: 5047950.00 },
+            { id: 10, name: 'VIP10', price: 48000.00, dailyTasks: 1, taskReward: 26000.00, dailyProfit: 26000.00, totalProfit: 9490000.00 }
+        ];
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-mega-red');
+                btn.classList.add('text-gray-500');
+            });
+            const activeBtn = document.getElementById(`nav-${tab}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-gray-500');
+                activeBtn.classList.add('text-mega-red');
+            }
+            renderContent();
         }
 
-        function showTab(pageId, element) {
-            // Hide all pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.remove('active');
-            });
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-
-            // Update active state in bottom nav
-            if(element) {
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                element.classList.add('active');
+        function renderContent() {
+            const container = document.getElementById('app-content');
+            if (currentTab === 'home') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gradient-to-r from-red-600 to-red-800 text-white p-4 rounded-xl shadow">
+                            <h2 class="text-xl font-bold">مرحباً بك في MEGA Alma-Ata</h2>
+                            <p class="text-sm mt-1 opacity-90">منصة الاستثمار والمهام الموثوقة في آسيا الوسطى</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="openDeposit()" class="bg-blue-50 text-blue-600 p-4 rounded-xl font-bold flex flex-col items-center shadow border border-blue-100">
+                                <i class="fa-solid fa-wallet text-2xl mb-2"></i> إيداع
+                            </button>
+                            <button onclick="openWithdraw()" class="bg-orange-50 text-orange-600 p-4 rounded-xl font-bold flex flex-col items-center shadow border border-orange-100">
+                                <i class="fa-solid fa-money-bill-transfer text-2xl mb-2"></i> سحب
+                            </button>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
+                            <h3 class="font-bold text-gray-700"><i class="fa-solid fa-circle-info text-mega-red ml-1"></i> معلومات عنا</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">أحد مراكز التسوق الأكثر شهرة MEGA Alma-Ata يقع وحدات في كازاخستان، في ألماتي... يدمج التسوق وتناول الطعام والترفيه والتسوق العائلي.</p>
+                            <button onclick="switchTab('vip')" class="text-xs text-mega-red font-bold underline">عرض خطط كبار الشخصيات &larr;</button>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'tasks') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <h2 class="font-bold text-lg text-gray-800">المهام اليومية</h2>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-sm">مهمة الاستثمار النشطة (${userVip})</p>
+                                <p class="text-xs text-gray-500 mt-1">قم بإتمام المهمة للحصول على الأرباح اليومية</p>
+                            </div>
+                            <button onclick="completeTask()" class="bg-mega-red text-white px-4 py-2 rounded-lg text-sm font-bold shadow">إتمام المهمة</button>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'team') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-3">
+                            <p class="text-xs text-gray-500">رمز الدعوة:</p>
+                            <div class="flex justify-between items-center bg-gray-50 p-2 rounded border">
+                                <span class="font-bold text-mega-red">154974</span>
+                                <button onclick="alert('تم النسخ!')" class="bg-mega-red text-white text-xs px-3 py-1 rounded">نسخ الرمز</button>
+                            </div>
+                            <p class="text-xs text-gray-500">رابط الإحالة:</p>
+                            <div class="flex justify-between items-center bg-gray-50 p-2 rounded border">
+                                <span class="text-xs text-gray-600 truncate max-w-[200px]">https://mega-alma.vip/ref?id=154974</span>
+                                <button onclick="alert('تم نسخ الرابط!')" class="bg-mega-red text-white text-xs px-3 py-1 rounded">نسخ الرابط</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-blue-900 text-white p-3 rounded-xl"><p class="text-xs">المستوى 1</p><p class="font-bold text-sm mt-1">13%</p></div>
+                            <div class="bg-blue-800 text-white p-3 rounded-xl"><p class="text-xs">المستوى 2</p><p class="font-bold text-sm mt-1">2%</p></div>
+                            <div class="bg-blue-700 text-white p-3 rounded-xl"><p class="text-xs">المستوى 3</p><p class="font-bold text-sm mt-1">1%</p></div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'vip') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <h2 class="font-bold text-lg text-gray-800">مستويات كبار الشخصيات (VIP)</h2>
+                        ${vipLevels.map(v => `
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-mega-red text-lg">${v.name}</span>
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded">المهام اليومية: ${v.dailyTasks}</span>
+                                </div>
+                                <div class="text-xs text-gray-600 space-y-1">
+                                    <p>الربح لكل مهمة: <span class="text-green-600 font-bold">${v.taskReward.toFixed(2)} USDT</span></p>
+                                    <p>الربح اليومي: <span class="font-bold">${v.dailyProfit.toFixed(2)} USDT</span></p>
+                                    <p>إجمالي الربح: <span class="font-bold">${v.totalProfit.toFixed(2)} USDT</span></p>
+                                </div>
+                                <button onclick="upgradeVip(${v.price}, '${v.name}')" class="w-full bg-black text-white py-2 rounded-lg text-sm font-bold">افتح الآن ${v.price.toFixed(2)} USDT</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (currentTab === 'profile') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <div class="bg-gray-900 text-white p-4 rounded-xl flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400">Hello,</p>
+                                <p class="font-bold text-lg">${userPhone}</p>
+                            </div>
+                            <span class="bg-amber-500 text-black text-xs font-bold px-2 py-1 rounded">${userVip}</span>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm grid grid-cols-2 gap-4 text-center">
+                            <div><p class="text-xs text-gray-500">الرصيد الإجمالي (USDT)</p><p class="font-bold text-lg text-mega-red">${userBalance.toFixed(2)}</p></div>
+                            <div><p class="text-xs text-gray-500">مبلغ الإيداع (USDT)</p><p class="font-bold text-lg">${totalDeposit.toFixed(2)}</p></div>
+                        </div>
+                        <div class="space-y-2">
+                            <button onclick="switchTab('records')" class="w-full bg-white border p-3 rounded-xl flex justify-between items-center text-sm font-bold shadow-sm">
+                                <span><i class="fa-solid fa-clock-rotate-left text-mega-red ml-2"></i> سجلات الإيداع والسحب</span>
+                                <i class="fa-solid fa-chevron-left text-gray-400"></i>
+                            </button>
+                            <button onclick="alert('تم تسجيل الخروج')" class="w-full bg-white border p-3 rounded-xl flex justify-between items-center text-sm font-bold text-red-600 shadow-sm">
+                                <span><i class="fa-solid fa-right-from-bracket ml-2"></i> تسجيل الخروج</span>
+                                <i class="fa-solid fa-chevron-left text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'records') {
+                container.innerHTML = `
+                    <div class="p-4 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h2 class="font-bold text-lg text-gray-800">السجلات</h2>
+                            <button onclick="switchTab('profile')" class="text-xs bg-gray-200 px-3 py-1 rounded">عودة</button>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl border text-center text-gray-400 space-y-2">
+                            <i class="fa-solid fa-folder-open text-4xl"></i>
+                            <p class="text-sm">لا توجد بيانات حالياً</p>
+                        </div>
+                    </div>
+                `;
             }
         }
+
+        function openDeposit() {
+            document.getElementById('modal-container').innerHTML = `
+                <div class="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
+                    <div class="bg-white w-full max-w-sm rounded-2xl p-4 space-y-4 shadow-xl">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-bold text-gray-800">إيداع USDT (BEP20)</h3>
+                            <button onclick="closeModal()" class="text-gray-500 font-bold">&times;</button>
+                        </div>
+                        <div class="text-center space-y-2">
+                            <div class="bg-gray-100 p-2 rounded inline-block text-xs font-mono break-all">${depositAddress}</div>
+                            <button onclick="navigator.clipboard.writeText('${depositAddress}'); alert('تم نسخ العنوان!')" class="bg-mega-red text-white w-full py-2 rounded-lg text-sm font-bold">نسخ عنوان الإيداع</button>
+                        </div>
+                        <button onclick="confirmDeposit(10)" class="w-full bg-green-600 text-white py-2 rounded-lg text-sm font-bold">تم الإيداع (تجريبي +10 USDT)</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openWithdraw() {
+            document.getElementById('modal-container').innerHTML = `
+                <div class="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
+                    <div class="bg-white w-full max-w-sm rounded-2xl p-4 space-y-4 shadow-xl">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-bold text-gray-800">سحب الأموال</h3>
+                            <button onclick="closeModal()" class="text-gray-500 font-bold">&times;</button>
+                        </div>
+                        <div class="space-y-3">
+                            <input type="number" id="withdraw-amount" placeholder="الكمية (USDT)" class="w-full border p-2 rounded text-sm">
+                            <input type="text" placeholder="عنوان السحب (BEP20)" class="w-full border p-2 rounded text-sm">
+                            <input type="password" placeholder="كلمة المرور" class="w-full border p-2 rounded text-sm">
+                            <button onclick="processWithdraw()" class="w-full bg-mega-red text-white py-2 rounded-lg text-sm font-bold">تأكيد السحب</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeModal() {
+            document.getElementById('modal-container').innerHTML = '';
+        }
+
+        function confirmDeposit(amount) {
+            userBalance += amount;
+            totalDeposit += amount;
+            closeModal();
+            alert('تمت إضافة الإيداع بنجاح!');
+            renderContent();
+        }
+
+        function processWithdraw() {
+            const amt = parseFloat(document.getElementById('withdraw-amount').value);
+            if(isNaN(amt) || amt <= 0) {
+                alert('الرجاء إدخال كمية صحيحة');
+                return;
+            }
+            if(amt > userBalance) {
+                alert('رصيدك غير كافٍ');
+                return;
+            }
+            userBalance -= amt;
+            closeModal();
+            alert('تم تقديم طلب السحب بنجاح!');
+            renderContent();
+        }
+
+        function upgradeVip(price, vipName) {
+            if(userBalance < price) {
+                alert('رصيدك غير كافٍ لفتح هذا المستوى، يرجى الإيداع أولاً.');
+                openDeposit();
+                return;
+            }
+            userBalance -= price;
+            userVip = vipName;
+            alert(`تم ترقية حسابك إلى ${vipName} بنجاح!`);
+            renderContent();
+        }
+
+        function completeTask() {
+            if(userVip === 'VIP0') {
+                alert('يرجى ترقية حسابك إلى أحد مستويات VIP لتنفيذ المهام.');
+                switchTab('vip');
+                return;
+            }
+            const currentVipObj = vipLevels.find(v => v.name === userVip);
+            const reward = currentVipObj ? currentVipObj.taskReward : 1.0;
+            userBalance += reward;
+            alert(`تم إتمام المهمة بنجاح! حصلت على ${reward.toFixed(2)} USDT`);
+            renderContent();
+        }
+
+        // Initialize App
+        renderContent();
     </script>
 </body>
 </html>
