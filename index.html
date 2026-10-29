@@ -57,5 +57,180 @@
         <div class="modal-card">
             <h3>Welcome Aboard!</h3>
             <p>✨ <strong>Your Welcome Benefits</strong><br>Enjoy a welcome bonus of 3 USDT for new users</p>
-            <p>💼 <strong>Explore Available Plans</strong><br>Choose a plan that fits your budget and review the available products in the device
-                
+            <p>💼 <strong>Explore Available Plans</strong><br>Choose a plan that fits your budget and review the available products in the device section.</p>
+            <p>💰 <strong>Illustrative Daily Earnings</strong><br>
+               Invest 30 USDT → Up to 3 USDT per day<br>
+               Invest 50 USDT → Up to 5 USDT per day<br>
+               Invest 100 USDT → Up to 10 USDT per day
+            </p>
+            <button class="btn-understand" onclick="closeModal()">فهم</button>
+        </div>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div id="page-home" class="page-content active">
+        <div class="app-header">
+            <div class="balance-title">إجمالي أرباح الدراجة</div>
+            <div class="balance-amount">3 <small style="font-size:16px;">USDT</small></div>
+            <div class="quick-actions">
+                <div class="action-item">
+                    <div class="action-btn" onclick="showTab('page-recharge')"><i class="fa-solid fa-wallet"></i></div>
+                    <span>الرصيد</span>
+                </div>
+                <div class="action-item">
+                    <div class="action-btn" onclick="showTab('page-recharge')"><i class="fa-solid fa-download"></i></div>
+                    <span>شحن</span>
+                </div>
+                <div class="action-item">
+                    <div class="action-btn" onclick="showTab('page-withdraw')"><i class="fa-solid fa-upload"></i></div>
+                    <span>سحب</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding-top:20px;">
+            <div class="device-card">
+                <img src="https://via.placeholder.com/100" class="device-img" alt="GPU">
+                <div class="device-info">
+                    <div class="device-title">CoreStation</div>
+                    <div class="device-detail">السعر: 30 USDT</div>
+                    <div class="device-detail">دورة الأرباح: 24 ساعة</div>
+                    <div class="device-detail">الوقت الفعال: 80 يوم</div>
+                    <div class="device-detail">الإيرادات: 3 USDT</div>
+                    <button class="btn-buy">شراء</button>
+                </div>
+            </div>
+
+            <div class="device-card">
+                <img src="https://via.placeholder.com/100" class="device-img" alt="Server">
+                <div class="device-info">
+                    <div class="device-title">ServerPro</div>
+                    <div class="device-detail">السعر: 50 USDT</div>
+                    <div class="device-detail">دورة الأرباح: 24 ساعة</div>
+                    <div class="device-detail">الوقت الفعال: 80 يوم</div>
+                    <div class="device-detail">الإيرادات: 5 USDT</div>
+                    <button class="btn-buy">شراء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEVICES PAGE -->
+    <div id="page-devices" class="page-content">
+        <h3 style="margin-bottom: 15px;">قائمة الأجهزة</h3>
+        <div class="device-card">
+            <img src="https://via.placeholder.com/100" class="device-img" alt="GPU">
+            <div class="device-info">
+                <div class="device-title">ChipCore</div>
+                <div class="device-detail">السعر: 100 USDT</div>
+                <div class="device-detail">دورة الأرباح: 24 ساعة</div>
+                <div class="device-detail">الإيرادات: 10 USDT</div>
+                <div class="device-detail">ربح 30 يوم: 300 USDT</div>
+                <button class="btn-buy">اذهب للاستثمار</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASKS PAGE -->
+    <div id="page-tasks" class="page-content">
+        <div style="background:#1a233d; padding:15px; border-radius:12px; margin-bottom:15px;">
+            <h3>User515750</h3>
+            <p style="font-size: 12px; color:#94a3b8;">رمز دعوتي: 56793137</p>
+            <div style="background:#0d1322; padding:10px; border-radius:6px; margin:10px 0; font-size:11px; word-break:break-all;">
+                https://virelo.top/index.html#/register?recommendCode=56793137
+            </div>
+            <button class="btn-buy" style="margin-top:0;">نسخ ومشاركة الرابط</button>
+        </div>
+        <div class="list-row"><span>دعوات المستوى الأول</span> <span>0/0</span></div>
+        <div class="list-row"><span>دعوات المستوى الثاني</span> <span>0/0</span></div>
+        <div class="list-row"><span>دعوات المستوى الثالث</span> <span>0/0</span></div>
+    </div>
+
+    <!-- PROFILE PAGE -->
+    <div id="page-profile" class="page-content">
+        <div style="background:#1a233d; padding:20px; border-radius:12px; margin-bottom:15px;">
+            <h2>User515750</h2>
+            <p style="font-size:12px; color:#3b82f6;">ID:147</p>
+            <p style="margin-top:10px; font-size:14px;">الرصيد: <strong>3 USDT</strong></p>
+        </div>
+        <div class="list-row"><span><i class="fa-solid fa-lock"></i> إعدادات كلمة المرور</span> <i class="fa-solid fa-chevron-left"></i></div>
+        <div class="list-row"><span><i class="fa-solid fa-user-plus"></i> دعوة الآخرين</span> <i class="fa-solid fa-chevron-left"></i></div>
+        <div class="list-row"><span><i class="fa-solid fa-credit-card"></i> معلومات البطاقة المصرفية</span> <i class="fa-solid fa-chevron-left"></i></div>
+        <div class="list-row"><span><i class="fa-solid fa-globe"></i> اللغة</span> <span>العربية <i class="fa-solid fa-chevron-left"></i></span></div>
+    </div>
+
+    <!-- RECHARGE PAGE -->
+    <div id="page-recharge" class="page-content">
+        <h3>الرصيد والشحن</h3>
+        <div style="background:#fff; color:#000; padding:15px; border-radius:12px; margin: 15px 0;">
+            <p style="font-size:12px;">(USDT) رصيدي</p>
+            <h2 style="font-size:28px;">3</h2>
+        </div>
+        <p style="font-size:13px; margin-bottom:10px;">اختر مبلغ الشحن:</p>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:15px;">
+            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">30</button>
+            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">50</button>
+            <button style="padding:10px; border:1px solid #ccc; background:#fff; border-radius:8px;">100</button>
+        </div>
+        <button class="btn-buy">شحن</button>
+    </div>
+
+    <!-- WITHDRAW PAGE -->
+    <div id="page-withdraw" class="page-content">
+        <h3>سحب الأرباح</h3>
+        <div style="background:#fff; color:#000; padding:15px; border-radius:12px; margin: 15px 0;">
+            <p style="font-size:12px;">(USDT) الحد الأدنى للسحب هو 10</p>
+            <input type="number" placeholder="أدخل مبلغ السحب" style="width:100%; padding:10px; margin-top:10px; border:1px solid #ccc; border-radius:6px;">
+        </div>
+        <button class="btn-buy">إرسال طلب السحب</button>
+    </div>
+
+    <!-- Floating Support Button -->
+    <div class="float-support">
+        <i class="fa-solid fa-headset"></i> اتصل بنا
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showTab('page-home', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>الرئيسية</span>
+        </div>
+        <div class="nav-item" onclick="showTab('page-devices', this)">
+            <i class="fa-solid fa-robot"></i>
+            <span>أجهزة</span>
+        </div>
+        <div class="nav-item" onclick="showTab('page-tasks', this)">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <span>مهمة</span>
+        </div>
+        <div class="nav-item" onclick="showTab('page-profile', this)">
+            <i class="fa-solid fa-user"></i>
+            <span>أنا</span>
+        </div>
+    </div>
+
+    <script>
+        function closeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+
+        function showTab(pageId, element) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update active state in bottom nav
+            if(element) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                element.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
