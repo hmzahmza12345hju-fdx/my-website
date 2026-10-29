@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة كسب - Kasb</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f4f6f9; color: #333; padding-bottom: 70px; }
+        header { background-color: #0f172a; color: white; padding: 15px; text-align: center; }
+        header h1 { font-size: 22px; color: #22c55e; }
+        header p { font-size: 13px; color: #94a3b8; margin-top: 5px; }
+        
+        .container { padding: 15px; }
+        .balance-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; margin-bottom: 15px; }
+        .balance-title { font-size: 14px; color: #64748b; }
+        .balance-amount { font-size: 28px; font-weight: bold; color: #0f172a; margin: 10px 0; }
+        
+        .action-btns { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 14px; }
+        .btn-deposit { background-color: #22c55e; }
+        .btn-withdraw { background-color: #ef4444; }
+        
+        .section-title { font-size: 18px; font-weight: bold; margin: 20px 0 10px 0; color: #0f172a; }
+        
+        .plan-card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .plan-info h3 { font-size: 16px; color: #1e293b; }
+        .plan-info p { font-size: 13px; color: #64748b; margin-top: 5px; }
+        .btn-subscribe { background-color: #3b82f6; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+        /* نظام التبويبات */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .nav-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); border-top: 1px solid #e2e8f0; z-index: 1000; }
+        .nav-item { text-decoration: none; color: #64748b; font-size: 12px; text-align: center; cursor: pointer; flex: 1; background: none; border: none; }
+        .nav-item.active { color: #22c55e; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>منصة كسب</h1>
+        <p>استثمر وربح بثقة</p>
+    </header>
+
+    <div class="container">
+        <!-- قسم الرئيسية -->
+        <div id="home-tab" class="tab-content active">
+            <div class="balance-card">
+                <div class="balance-title">الرصيد الحالي</div>
+                <div class="balance-amount">$0.00</div>
+                <div class="action-btns">
+                    <button class="btn btn-deposit" onclick="alert('خاصية الإيداع ستتوفر قريباً')">إيداع</button>
+                    <button class="btn btn-withdraw" onclick="alert('رصيدك غير كافي للسحب')">سحب</button>
+                </div>
+            </div>
+
+            <div class="section-title">الخطط النشطة</div>
+            <div class="plan-card">
+                <div class="plan-info">
+                    <h3>خطة VIP 3</h3>
+                    <p>السعر: $100 | الربح اليومي: $12.00</p>
+                </div>
+                <button class="btn-subscribe" onclick="alert('تم تفعيل الخطة بنجاح')">شراء</button>
+            </div>
+        </div>
+
+        <!-- قسم الخطط الاستثمارية -->
+        <div id="plans-tab" class="tab-content">
+            <div class="section-title">جميع الخطط المتاحة</div>
+            <div class="plan-card">
+                <div class="plan-info">
+                    <h3>خطة VIP 1</h3>
+                    <p>السعر: $10 | الربح اليومي: $1.00</p>
+                </div>
+                <button class="btn-subscribe" onclick="alert('تم تفعيل الخطة بنجاح')">اشتراك</button>
+            </div>
+            <div class="plan-card">
+                <div class="plan-info">
+                    <h3>خطة VIP 2</h3>
+                    <p>السعر: $50 | الربح اليومي: $5.50</p>
+                </div>
+                <button class="btn-subscribe" onclick="alert('تم تفعيل الخطة بنجاح')">اشتراك</button>
+            </div>
+            <div class="plan-card">
+                <div class="plan-info">
+                    <h3>خطة VIP 3</h3>
+                    <p>السعر: $100 | الربح اليومي: $12.00</p>
+                </div>
+                <button class="btn-subscribe" onclick="alert('تم تفعيل الخطة بنجاح')">اشتراك</button>
+            </div>
+        </div>
+
+        <!-- قسم الفريق -->
+        <div id="team-tab" class="tab-content">
+            <div class="section-title">فريق الإحالة</div>
+            <div class="balance-card">
+                <div class="balance-title">رابط الإحالة الخاص بك</div>
+                <p style="font-size: 12px; color: #3b82f6; margin: 10px 0; word-break: break-all;">https://kasb.app/ref/user</p>
+                <button class="btn btn-deposit" onclick="alert('تم نسخ الرابط بنجاح!')">نسخ الرابط</button>
+            </div>
+        </div>
+
+        <!-- قسم حسابي -->
+        <div id="account-tab" class="tab-content">
+            <div class="section-title">حساب المستخدم</div>
+            <div class="balance-card" style="text-align: right;">
+                <p style="margin-bottom: 8px;"><strong>البريد:</strong> user@kasb.app</p>
+                <p style="margin-bottom: 8px;"><strong>الحالة:</strong> مفعل (VIP 3)</p>
+                <p style="margin-bottom: 15px;"><strong>الدعم الفني:</strong> متاح 24/7</p>
+                <button class="btn btn-withdraw" style="width: 100%;" onclick="alert('تم تسجيل الخروج')">تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط التنقل السفلي -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchTab('home', this)">الرئيسية</button>
+        <button class="nav-item" onclick="switchTab('plans', this)">الخطط</button>
+        <button class="nav-item" onclick="switchTab('team', this)">الفريق</button>
+        <button class="nav-item" onclick="switchTab('account', this)">حسابي</button>
+    </div>
+
+    <script>
+        function switchTab(tabName, element) {
+            // إخفاء جميع الأقسام
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // إزالة التحديد من جميع الأزرار
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+
+            // إظهار القسم المطلوب وتحديد الزر
+            document.getElementById(tabName + '-tab').classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
